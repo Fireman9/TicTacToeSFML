@@ -4,7 +4,6 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace Sonar {
 	class AssetMng
 	{
 	public:
@@ -25,4 +24,3 @@ namespace Sonar {
 		std::map<std::string, sf::Font> _fonts;
 	};
 
-}

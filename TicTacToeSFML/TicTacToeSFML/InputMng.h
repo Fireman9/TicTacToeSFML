@@ -2,7 +2,6 @@
 
 #include "SFML/Graphics.hpp"
 
-namespace Sonar {
 	class InputMng{
 	public:
 		InputMng() {
@@ -14,4 +13,3 @@ namespace Sonar {
 		bool isSpriteClicked(sf::Sprite object, sf::Mouse::Button button, sf::RenderWindow& window);
 		sf::Vector2i getMousePosition(sf::RenderWindow& window);
 	};
-}

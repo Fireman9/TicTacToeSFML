@@ -1,6 +1,5 @@
 #include "AssetMng.h"
 
-namespace Sonar {
 	void AssetMng::loadTexture(std::string name, std::string fileName) {
 		sf::Texture text;
 		if (text.loadFromFile(fileName)) {
@@ -19,4 +18,3 @@ namespace Sonar {
 	sf::Font& AssetMng::getFont(std::string name){
 		return this->_fonts.at(name);
 	}
-}

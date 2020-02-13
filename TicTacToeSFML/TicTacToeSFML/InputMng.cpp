@@ -1,6 +1,5 @@
 #include "InputMng.h"
 
-namespace Sonar {
 	bool InputMng::isSpriteClicked(sf::Sprite object, sf::Mouse::Button button, sf::RenderWindow& window) {
 		if (sf::Mouse::isButtonPressed(button)) {
 			sf::IntRect tempRect(object.getPosition().x, object.getPosition().y, object.getGlobalBounds().width, object.getGlobalBounds().height);
@@ -14,4 +13,3 @@ namespace Sonar {
 	sf::Vector2i InputMng::getMousePosition(sf::RenderWindow& window) {
 		return sf::Mouse::getPosition(window);
 	}
-}

@@ -5,7 +5,6 @@
 
 #include "State.h"
 
-namespace Sonar {
 	typedef std::unique_ptr<State> StateRef;
 
 	class StateMachine {
@@ -31,4 +30,3 @@ namespace Sonar {
 		bool _isAdding;
 		bool _isReplacing;
 	};
-}

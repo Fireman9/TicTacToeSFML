@@ -1,6 +1,5 @@
 #include "StateMachine.h"
 
-namespace Sonar {
 	void StateMachine::addState(StateRef newState, bool isReplacing) {
 		this->_isAdding = true;
 		this->_isReplacing = isReplacing;
@@ -39,4 +38,3 @@ namespace Sonar {
 	StateRef& StateMachine::GetActiveState() {
 		return this->_states.top();
 	}
-}

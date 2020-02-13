@@ -1,5 +1,4 @@
 #pragma once
-namespace Sonar {
 	class State {
 	public:
 		virtual void Init() = 0;
@@ -15,4 +14,3 @@ namespace Sonar {
 
 		}
 	};
-}

@@ -7,7 +7,6 @@
 #include "AssetMng.h"
 #include "InputMng.h"
 
-namespace Sonar {
 	struct GameData {
 		StateMachine machine;
 		sf::RenderWindow window;
@@ -28,4 +27,3 @@ namespace Sonar {
 
 		void run();
 	};
-}

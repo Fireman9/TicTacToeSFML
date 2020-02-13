@@ -1,6 +1,5 @@
 #include "GameLoop.h"
 
-namespace Sonar {
 	GameLoop::GameLoop(int width, int height, std::string title) {
 		_data->window.create(sf::VideoMode(width, height), title, sf::Style::Close | sf::Style::Titlebar);
 		this->run();
@@ -33,4 +32,3 @@ namespace Sonar {
 			this->_data->machine.GetActiveState()->draw(interpolation);
 		}
 	}
-}
