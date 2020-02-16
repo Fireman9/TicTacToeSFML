@@ -154,12 +154,15 @@
     <ClCompile Include="GameLoop.cpp" />
     <ClCompile Include="InputMng.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SplashState.cpp" />
     <ClCompile Include="StateMachine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssetMng.h" />
+    <ClInclude Include="Definitions.h" />
     <ClInclude Include="GameLoop.h" />
     <ClInclude Include="InputMng.h" />
+    <ClInclude Include="SplashState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateMachine.h" />
   </ItemGroup>
