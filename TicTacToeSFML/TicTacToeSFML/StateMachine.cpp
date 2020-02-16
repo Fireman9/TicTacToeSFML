@@ -19,9 +19,10 @@
 			}
 
 			this->_isRemoving = false;
-
-			if (this->_isAdding) {
-				if (!this->_states.empty()) {
+		}
+		if (this->_isAdding) {
+			if (!this->_states.empty()) {
+				if (this->_isReplacing) {
 					this->_states.pop();
 				}
 				else {
@@ -30,7 +31,7 @@
 			}
 
 			this->_states.push(std::move(this->_newState));
-			this->_states.top()->Init();
+			this->_states.top()->init();
 			this->_isAdding = false;
 		}
 	}
