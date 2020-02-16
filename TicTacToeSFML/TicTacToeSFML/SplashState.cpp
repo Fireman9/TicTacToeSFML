@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iostream>
 #include "Definitions.h"
+#include "MainMenuState.h"
 
 
 SplashState::SplashState(GameDataRef data) :_data(data){
@@ -25,7 +26,7 @@ void SplashState::handleInput(){
 void SplashState::update(float dt){
 	if (this->_clock.getElapsedTime().asSeconds() > SPLASH_STATE_SHOW_TIME) {
 		//Switch to Main Menu
-		std::cout << "Go to Main Menu" << std::endl;
+		this->_data->machine.addState(StateRef(new MainMenuState(_data)), true);
 	}
 }
 
