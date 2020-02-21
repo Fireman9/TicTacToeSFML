@@ -1,6 +1,7 @@
 #include "GameState.h"
 #include <sstream>
 #include "Definitions.h"
+#include "PauseState.h"
 #include <iostream>
 
 GameState::GameState(GameDataRef data) :_data(data) {
@@ -26,7 +27,7 @@ void GameState::handleInput() {
 			this->_data->window.close();
 		}
 		if (this->_data->input.isSpriteClicked(this->_pauseButton, sf::Mouse::Left, this->_data->window)) {
-			std::cout << "Pause the game" << std::endl;
+			this->_data->machine.addState(StateRef(new PauseState(_data)), false);
 		}
 	}
 }
