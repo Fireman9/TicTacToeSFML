@@ -1,6 +1,7 @@
 #include "MainMenuState.h"
 #include <sstream>
 #include "Definitions.h"
+#include "GameState.h"
 #include <iostream>
 
 MainMenuState::MainMenuState(GameDataRef data):_data(data){
@@ -29,7 +30,7 @@ void MainMenuState::handleInput(){
 			this->_data->window.close();
 		}
 		if (this->_data->input.isSpriteClicked(this->_playButton, sf::Mouse::Left, this->_data->window)) {
-			std::cout << "Go to Game Screen" << std::endl;
+			this->_data->machine.addState(StateRef(new GameState(_data)), true);
 		}
 	}
 }
