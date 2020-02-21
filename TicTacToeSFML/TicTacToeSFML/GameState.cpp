@@ -2,6 +2,7 @@
 #include <sstream>
 #include "Definitions.h"
 #include "PauseState.h"
+#include "GameOverState.h"
 #include <iostream>
 
 GameState::GameState(GameDataRef data) :_data(data) {
@@ -27,7 +28,8 @@ void GameState::handleInput() {
 			this->_data->window.close();
 		}
 		if (this->_data->input.isSpriteClicked(this->_pauseButton, sf::Mouse::Left, this->_data->window)) {
-			this->_data->machine.addState(StateRef(new PauseState(_data)), false);
+			//this->_data->machine.addState(StateRef(new PauseState(_data)), false);
+			this->_data->machine.addState(StateRef(new GameOverState(_data)), true);
 		}
 	}
 }

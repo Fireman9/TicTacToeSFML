@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="AssetMng.cpp" />
     <ClCompile Include="GameLoop.cpp" />
+    <ClCompile Include="GameOverState.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="InputMng.cpp" />
     <ClCompile Include="main.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="AssetMng.h" />
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="GameLoop.h" />
+    <ClInclude Include="GameOverState.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="InputMng.h" />
     <ClInclude Include="MainMenuState.h" />
