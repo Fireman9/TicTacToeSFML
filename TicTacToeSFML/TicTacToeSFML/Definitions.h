@@ -22,6 +22,8 @@
 #define O_WINNING_PIECE_FILEPATH "Resources/res/O Win.png"
 #define PAUSE_BUTTON "Resources/res/Pause Button.png"
 
+#define GRID_SPRITE_FILEPATH "Resources/res/Grid.png"
+
 #define X_PIECE 8
 #define O_PIECE 0
 #define EMPTY_PIECE 0
