@@ -14,6 +14,8 @@ public:
 private:
 	void initGridPiece();
 
+	void checkAndPlace();
+
 	GameDataRef _data;
 	sf::Sprite _background;
 	sf::Sprite _pauseButton;

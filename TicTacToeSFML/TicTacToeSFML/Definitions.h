@@ -25,7 +25,7 @@
 #define GRID_SPRITE_FILEPATH "Resources/res/Grid.png"
 
 #define X_PIECE 8
-#define O_PIECE 0
+#define O_PIECE 7
 #define EMPTY_PIECE 0
 #define PLAYER_PIECE X_PIECE
 #define AI_PIECE O_PIECE
