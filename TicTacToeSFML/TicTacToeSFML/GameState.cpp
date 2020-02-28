@@ -13,10 +13,14 @@ void GameState::init() {
 	gameState = STATE_PLAYING;
 	turn = PLAYER_PIECE;
 
+	this->ai = new AI(turn, this->_data);
+
 	this->_data->assets.loadTexture("Pause Button", PAUSE_BUTTON);
 	this->_data->assets.loadTexture("Grid Sprite", GRID_SPRITE_FILEPATH);
 	this->_data->assets.loadTexture("X Piece", X_PIECE_FILEPATH);
 	this->_data->assets.loadTexture("O Piece", O_PIECE_FILEPATH);
+	this->_data->assets.loadTexture("X Winning Piece", X_WINNING_PIECE_FILEPATH);
+	this->_data->assets.loadTexture("O Winning Piece", O_WINNING_PIECE_FILEPATH);
 
 	_background.setTexture(this->_data->assets.getTexture("Background"));
 	_pauseButton.setTexture(this->_data->assets.getTexture("Pause Button"));
@@ -44,13 +48,19 @@ void GameState::handleInput() {
 			this->_data->machine.addState(StateRef(new PauseState(_data)), false);
 		}
 		else if (this->_data->input.isSpriteClicked(this->_gridSprite, sf::Mouse::Left, this->_data->window)) {
-			this->checkAndPlace();
+			if (STATE_PLAYING == gameState) {
+				this->checkAndPlace();
+			}
 		}
 	}
 }
 
 void GameState::update(float dt) {
-
+	if (STATE_DRAW == gameState || STATE_LOSE == gameState || STATE_WON == gameState) {
+		if (this->_clock.getElapsedTime().asSeconds() > TIME_BEFORE_SHOWING_GAME_OVER) {
+			this->_data->machine.addState(StateRef(new GameOverState(_data)), true);
+		}
+	}
 }
 
 void GameState::draw(float dt) {
@@ -111,13 +121,76 @@ void GameState::checkAndPlace() {
 		gridArray[column - 1][row - 1] = turn;
 		if (PLAYER_PIECE == turn) {
 			_gridPieces[column - 1][row - 1].setTexture(this->_data->assets.getTexture("X Piece"));
-			turn = AI_PIECE;
-		}
-		else if (AI_PIECE == turn) {
-			_gridPieces[column - 1][row - 1].setTexture(this->_data->assets.getTexture("O Piece"));
-			turn = PLAYER_PIECE;
+			this->checkPlayerWon(turn);
 		}
 
 		_gridPieces[column - 1][row - 1].setColor(sf::Color(255, 255, 255, 255));
+	}
+}
+
+void GameState::checkPlayerWon(int turn) {
+	check3PiecesForMatch(0, 0, 1, 0, 2, 0, turn);
+	check3PiecesForMatch(0, 1, 1, 1, 2, 1, turn);
+	check3PiecesForMatch(0, 2, 1, 2, 2, 2, turn);
+	check3PiecesForMatch(0, 0, 0, 1, 0, 2, turn);
+	check3PiecesForMatch(1, 0, 1, 1, 1, 2, turn);
+	check3PiecesForMatch(2, 0, 2, 1, 2, 2, turn);
+	check3PiecesForMatch(0, 0, 1, 1, 2, 2, turn);
+	check3PiecesForMatch(0, 2, 1, 1, 2, 0, turn);
+
+	if (STATE_WON != gameState) {
+		gameState = STATE_AI_PLAYING;
+
+		ai->PlacePiece(&gridArray, _gridPieces, &gameState);
+
+		check3PiecesForMatch(0, 0, 1, 0, 2, 0, AI_PIECE);
+		check3PiecesForMatch(0, 1, 1, 1, 2, 1, AI_PIECE);
+		check3PiecesForMatch(0, 2, 1, 2, 2, 2, AI_PIECE);
+		check3PiecesForMatch(0, 0, 0, 1, 0, 2, AI_PIECE);
+		check3PiecesForMatch(1, 0, 1, 1, 1, 2, AI_PIECE);
+		check3PiecesForMatch(2, 0, 2, 1, 2, 2, AI_PIECE);
+		check3PiecesForMatch(0, 0, 1, 1, 2, 2, AI_PIECE);
+		check3PiecesForMatch(0, 2, 1, 1, 2, 0, AI_PIECE);
+	}
+
+	int emptyNum = 9;
+
+	for (int x = 0; x < 3; x++) {
+		for (int y = 0; y < 3; y++) {
+			if (EMPTY_PIECE != gridArray[x][y]) {
+				emptyNum--;
+			}
+		}
+	}
+	if (0 == emptyNum && (STATE_WON != gameState) && (STATE_LOSE != gameState)) {
+		gameState = STATE_DRAW;
+	}
+	if (STATE_DRAW == gameState || STATE_LOSE == gameState || STATE_WON == gameState) {
+		this->_clock.restart();
+	}
+
+	std::cout << gameState << std::endl;
+}
+
+void GameState::check3PiecesForMatch(int x1, int y1, int x2, int y2, int x3, int y3, int pieceToCheck) {
+	if (pieceToCheck == gridArray[x1][y1] && pieceToCheck == gridArray[x2][y2] && pieceToCheck == gridArray[x3][y3]) {
+		std::string winningPieceStr;
+		if (O_PIECE == pieceToCheck) {
+			winningPieceStr = "O Winning Piece";
+		}
+		else {
+			winningPieceStr = "X Winning Piece";
+		}
+
+		_gridPieces[x1][y1].setTexture(this->_data->assets.getTexture(winningPieceStr));
+		_gridPieces[x2][y2].setTexture(this->_data->assets.getTexture(winningPieceStr));
+		_gridPieces[x3][y3].setTexture(this->_data->assets.getTexture(winningPieceStr));
+	
+		if (PLAYER_PIECE == pieceToCheck) {
+			gameState = STATE_WON;
+		}
+		else {
+			gameState = STATE_LOSE;
+		}
 	}
 }
